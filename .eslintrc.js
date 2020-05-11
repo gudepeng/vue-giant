@@ -10,7 +10,6 @@ module.exports = {
     es6: true
   },
   extends: ['plugin:vue/recommended', 'eslint:recommended'],
-
   // add your custom rules here
   // it is base on https://github.com/vuejs/eslint-config-vue
   rules: {
@@ -47,7 +46,9 @@ module.exports = {
     'curly': [2, 'multi-line'],
     'dot-location': [2, 'property'],
     'eol-last': 2,
-    'eqeqeq': ['error', 'always', { 'null': 'ignore' }],
+    'eqeqeq': ['error', 'always', {
+      'null': 'ignore'
+    }],
     'generator-star-spacing': [2, {
       'before': true,
       'after': true

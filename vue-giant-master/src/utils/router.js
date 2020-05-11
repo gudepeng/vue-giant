@@ -1,23 +1,31 @@
 import router from '../router'
 import store from '../store'
-import { Message } from 'element-ui'
+import {
+  Message
+} from 'element-ui'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-import { getUserToken } from '@/utils/user'
+import {
+  getUserToken
+} from '@/utils/user'
 import Layout from '@/layout/index.vue'
 
-NProgress.configure({ showSpinner: false })
+NProgress.configure({
+  showSpinner: false
+})
 
 router.beforeEach(async (to, from, next) => {
   NProgress.start()
   const hasToken = getUserToken()
   if (hasToken) {
     if (to.path === '/login') {
-      next({ path: '/home' })
+      next({
+        path: '/home'
+      })
       NProgress.done()
     } else {
-      const hasRoles = store.getters.userInfo
-      if (hasRoles) {
+      const isLogin = store.getters.userInfo
+      if (isLogin) {
         next()
       } else {
         try {
@@ -30,7 +38,10 @@ router.beforeEach(async (to, from, next) => {
               path: 'app1*'
             }]
           }])
-          next({ ...to, replace: true })
+          next({
+            ...to,
+            replace: true
+          })
         } catch (error) {
           Message.error(error || 'Has Error')
           next(`/login?redirect=${to.path}`)
@@ -43,7 +54,9 @@ router.beforeEach(async (to, from, next) => {
       next()
       NProgress.done()
     } else {
-      next({ path: '/login' })
+      next({
+        path: '/login'
+      })
     }
   }
 })

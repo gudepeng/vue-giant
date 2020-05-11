@@ -8,11 +8,7 @@
       </div>
       <div>
         <template v-for="collectMenu in collectMenus">
-          <div
-            class="collect-menu"
-            :key="collectMenu.path"
-            @click="toMenu(collectMenu.path)"
-          >{{collectMenu.title}}</div>
+          <div class="collect-menu" :key="collectMenu.path" @click="toMenu(collectMenu.path)">{{collectMenu.title}}</div>
         </template>
       </div>
     </div>
@@ -23,11 +19,7 @@
           <div class="twotitle" :key="menu.appPath + cmenu.path">
             <div @click="clickMenu(menu,cmenu)">{{cmenu.title}}</div>
             <div>
-              <i
-                v-if="!cmenu.onweb"
-                class="el-icon-star-off"
-                @click="addCollectMenu(menu,cmenu,index1,index2)"
-              ></i>
+              <i v-if="!cmenu.onweb" class="el-icon-star-off" @click="addCollectMenu(menu,cmenu,index1,index2)"></i>
               <i v-else class="el-icon-star-on" @click="delCollectMenu(menu,cmenu,index1,index2)"></i>
             </div>
           </div>
@@ -42,46 +34,46 @@
 import menuConfig from '@/menu/index.js'
 export default {
   name: 'Menu',
-  data() {
+  data () {
     return {
-      collectMenus: this.$store.getters.collectMenus,
+      collectMenus: this.$store.state.user.collectMenus,
       menus: [],
       showTwoMenu: false
     }
   },
-  created() {
+  created () {
     this.menus = menuConfig
   },
   methods: {
-    hiddenPanel() {
+    hiddenPanel () {
       this.$parent.toggleMenu()
     },
-    toggleTwoMenu() {
+    toggleTwoMenu () {
       this.showTwoMenu = !this.showTwoMenu
     },
-    clickMenu(menu, cmenu) {
+    clickMenu (menu, cmenu) {
       this.toMenu(`/${menu.appPath}${cmenu.path}`)
     },
-    toMenu(path) {
+    toMenu (path) {
       this.hiddenPanel()
       window.history.pushState({}, '', path)
     },
-    addCollectMenu(menu, cmenu, index1, index2) {
+    addCollectMenu (menu, cmenu, index1, index2) {
       const data = {
         title: cmenu.title,
         path: `/${menu.appPath}${cmenu.path}`
       }
-      this.$store.commit('setting/SET_COLLECT_MENU', data)
+      this.$store.commit('user/SET_COLLECT_MENU', data)
       const me = this.menus
       me[index1].child[index2].onweb = true
       this.menus = JSON.parse(JSON.stringify(me))
     },
-    delCollectMenu(menu, cmenu, index1, index2) {
+    delCollectMenu (menu, cmenu, index1, index2) {
       const data = {
         title: cmenu.title,
         path: `/${menu.appPath}${cmenu.path}`
       }
-      this.$store.commit('setting/DEL_COLLECT_MENU', data)
+      this.$store.commit('user/DEL_COLLECT_MENU', data)
       const me = this.menus
       me[index1].child[index2].onweb = false
       this.menus = JSON.parse(JSON.stringify(me))

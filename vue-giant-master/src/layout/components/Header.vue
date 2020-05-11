@@ -23,16 +23,16 @@
 <script>
 export default {
   name: 'Header',
-  data() {
+  data () {
     return {
       circleUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
     }
   },
   methods: {
-    toHome() {
+    toHome () {
       window.history.pushState({}, '', '/home')
     },
-    handleCommand(val) {
+    handleCommand (val) {
       if (val === 'logout') {
         this.$store.dispatch('user/logout').then(() => {
           window.history.pushState({}, '', '/login')
