@@ -174,6 +174,7 @@ module.exports = {
       'after': true
     }],
     'space-before-blocks': [2, 'always'],
+	'space-before-function-paren':[2,{'anonymous': 'never', 'named': 'never', 'asyncArrow': 'always'}]
     'space-in-parens': [2, 'never'],
     'space-infix-ops': 2,
     'space-unary-ops': [2, {
@@ -191,9 +192,7 @@ module.exports = {
     'yoda': [2, 'never'],
     'prefer-const': 2,
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
-    'object-curly-spacing': [2, 'always', {
-      objectsInObjects: false
-    }],
+    'object-curly-spacing': 'off',
     'array-bracket-spacing': [2, 'never']
   }
 }
