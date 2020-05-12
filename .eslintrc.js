@@ -20,6 +20,7 @@ module.exports = {
         'allowFirstLine': false
       }
     }],
+    'vue/html-self-closing': 'off',
     'vue/singleline-html-element-content-newline': 'off',
     'vue/multiline-html-element-content-newline': 'off',
     'vue/name-property-casing': ['error', 'PascalCase'],
