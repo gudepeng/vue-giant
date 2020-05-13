@@ -1,4 +1,3 @@
-
 <template>
   <div class="panel" @click="doOnWeb" @keydown="doOnWeb">
     <top-header class="panel-heder"></top-header>
@@ -15,13 +14,9 @@
 import TopHeader from '@/layout/components/Header'
 import MainMenu from '@/layout/components/Menu'
 import MainLogin from '@/layout/components/MainLogin'
-
 // 导入乾坤函数
-import {
-  registerMicroApps,
-  runAfterFirstMounted,
-  start
-} from 'qiankun'
+import { registerMicroApps, runAfterFirstMounted, start } from 'qiankun'
+import axios from '@/utils/request'
 
 export default {
   name: 'Layout',
@@ -36,7 +31,7 @@ export default {
     }
   },
   computed: {
-    showView: function () {
+    showView: function() {
       return this.$route.path === '/home'
     }
   },
@@ -44,7 +39,8 @@ export default {
     // 定义传入子应用的数据
     const msg = {
       data: this.$store.getters,
-      fns: []
+      fns: {},
+      prototype: [{ name: '$axios', value: axios }]
     }
     // 注册子应用
     registerMicroApps(
@@ -134,5 +130,5 @@ export default {
     top: 51px;
     bottom: 0px;
   }
-}
-</style>>
+}</style
+>>

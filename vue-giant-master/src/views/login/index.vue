@@ -1,13 +1,28 @@
 <template>
   <div class="panel">
     <div class="login-panel">
-      <el-form ref="loginForm" :model="loginForm" :rules="loginRules" label-position="left">
+      <el-form
+        ref="loginForm"
+        :model="loginForm"
+        :rules="loginRules"
+        label-position="left"
+      >
         <el-form-item prop="username" label="username">
-          <el-input ref="username" v-model="loginForm.username" placeholder="用户名" type="text" />
+          <el-input
+            ref="username"
+            v-model="loginForm.username"
+            placeholder="用户名"
+            type="text"
+          />
         </el-form-item>
 
         <el-form-item prop="password" label="password">
-          <el-input ref="password" v-model="loginForm.password" type="password" placeholder="密码" />
+          <el-input
+            ref="password"
+            v-model="loginForm.password"
+            type="password"
+            placeholder="密码"
+          />
         </el-form-item>
 
         <el-button
@@ -15,14 +30,15 @@
           type="primary"
           style="width:100%;margin-bottom:30px;"
           @click="handleLogin"
-        >登录</el-button>
+        >
+          登录
+        </el-button>
       </el-form>
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
   name: 'Login',
   data() {
@@ -32,14 +48,15 @@ export default {
         password: ''
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur', message: '请输入用户名' }],
+        username: [
+          { required: true, trigger: 'blur', message: '请输入用户名' }
+        ],
         password: [{ required: true, trigger: 'blur', message: '请输入密码' }]
       },
       loading: false
     }
   },
-  created() {
-  },
+  created() {},
   mounted() {
     if (this.loginForm.username === '') {
       this.$refs.username.focus()
@@ -47,14 +64,13 @@ export default {
       this.$refs.password.focus()
     }
   },
-  destroyed() {
-  },
+  destroyed() {},
   methods: {
     handleLogin() {
       this.$refs.loginForm.validate(async valid => {
         if (valid) {
           this.loading = true
-          await this.$store.dispatch('user/login').then(() => {
+          await this.$store.dispatch('user/login', this.loginForm).then(() => {
             this.$router.push({ path: '/home' })
             // window.history.pushState({}, '', '/home')
             this.loading = false

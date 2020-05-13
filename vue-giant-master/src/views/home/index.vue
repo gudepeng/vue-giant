@@ -1,5 +1,5 @@
 <template>
-  <div>1111222</div>
+  <div>home page</div>
 </template>
 
 <script>
@@ -8,5 +8,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>

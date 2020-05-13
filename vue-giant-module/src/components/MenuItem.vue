@@ -1,18 +1,18 @@
 <template>
   <div v-if="!item.hidden">
-    <template v-if="hasOneShowingChild(item.children,item)">
+    <template v-if="hasOneShowingChild(item.children, item)">
       <el-menu-item :index="url(item.path)">
         <template v-if="!isNest">
           <i :class="item.meta.icon"></i>
         </template>
-        <span slot="title">{{item.meta.title}}</span>
+        <span slot="title">{{ item.meta.title }}</span>
       </el-menu-item>
     </template>
 
     <el-submenu v-else ref="subMenu" :index="url(item.path)">
       <template slot="title">
         <i :class="item.meta.icon"></i>
-        <span slot="title">{{item.meta.title}}</span>
+        <span slot="title">{{ item.meta.title }}</span>
       </template>
       <menu-item
         v-for="child in item.children"

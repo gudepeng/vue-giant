@@ -42,14 +42,14 @@ export const routers = [
       }
     ]
   }
-
 ]
 
-const createRouter = () => new VueRouter({
-  base: window.__POWERED_BY_QIANKUN__ ? '/app1' : '/',
-  mode: 'history',
-  routes: []
-})
+const createRouter = () =>
+  new VueRouter({
+    base: window.__POWERED_BY_QIANKUN__ ? '/app1' : '/',
+    mode: 'history',
+    routes: []
+  })
 
 const router = createRouter()
 

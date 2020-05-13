@@ -1,8 +1,4 @@
-import {
-  setUserToken,
-  getUserToken,
-  delUserToken
-} from '@/utils/user.js'
+import { setUserToken, getUserToken, delUserToken } from '@/utils/user.js'
 
 const state = {
   token: getUserToken(),
@@ -11,7 +7,10 @@ const state = {
 }
 
 const mutations = {
-  DEL_TOKEN: (state) => {
+  SET_TOKEN: (state, token) => {
+    state.token = token
+  },
+  DEL_TOKEN: state => {
     state.token = null
   },
   SET_USERINFO: (state, userInfo) => {
@@ -35,27 +34,22 @@ const mutations = {
 }
 
 const actions = {
-  login({
-    commit
-  }, userInfo) {
+  login({ commit }, userInfo) {
     // TODO 登录获取用户token
-    const userToken = 'user1'
+    const userToken = userInfo.username
     // END 登录获取用户token
     setUserToken(userToken)
+    commit('SET_TOKEN', userToken)
   },
-  logout({
-    commit
-  }) {
+  logout({ commit }) {
     delUserToken()
     commit('DEL_TOKEN')
   },
-  getUserInfo({
-    commit
-  }) {
+  getUserInfo({ commit }) {
     // TODO 去后台请求用户信息及权限
     const userInfo = {
-      name: 'gdp',
-      age: '29'
+      name: 'username',
+      roles: 'admin'
     }
     // END 去后台请求用户信息及权限
     commit('SET_USERINFO', userInfo)

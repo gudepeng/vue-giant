@@ -7,6 +7,3 @@ export default {
   name: 'Page3'
 }
 </script>
-
-<style>
-</style>

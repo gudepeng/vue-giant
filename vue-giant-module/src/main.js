@@ -10,26 +10,14 @@ Vue.config.productionTip = false
 
 let instance = null
 
-function render(props = {}) {
-  const { container } = props
-
-  instance = new Vue({
-    router,
-    store,
-    render: h => h(App)
-  }).$mount(container ? container.querySelector('#app') : '#app')
+export async function bootstrap({ prototype }) {
+  prototype.map(p => {
+    Vue.prototype[p.name] = p.value
+  })
 }
 
-if (!window.__POWERED_BY_QIANKUN__) {
-  render()
-}
-
-function storeTest(props) {
-  props.onGlobalStateChange &&
-    props.onGlobalStateChange(
-      (value, prev) => console.log(`[onGlobalStateChange - ${props.name}]:`, value, prev),
-      true
-    )
+function initStore(props) {
+  props.onGlobalStateChange && props.onGlobalStateChange((value, prev) => {})
   props.setGlobalState &&
     props.setGlobalState({
       ignore: props.name,
@@ -39,17 +27,27 @@ function storeTest(props) {
     })
 }
 
-export async function bootstrap() {
-  console.log('[vue] vue app bootstraped')
+function render(props = {}) {
+  instance = new Vue({
+    router,
+    store,
+    render: h => h(App)
+  }).$mount('#app')
 }
 
 export async function mount(props) {
-  console.log('[vue] props from main framework', props)
-  storeTest(props)
-  render(props)
+  initStore(props)
+  if (props.data.userInfo.roles) {
+    store.commit('permission/SET_ROLES', props.data.userInfo.roles)
+  }
+  render()
 }
 
 export async function unmount() {
   instance.$destroy()
   instance = null
+}
+
+if (!window.__POWERED_BY_QIANKUN__) {
+  render()
 }

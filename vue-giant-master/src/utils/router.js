@@ -1,13 +1,9 @@
 import router from '../router'
 import store from '../store'
-import {
-  Message
-} from 'element-ui'
+import { Message } from 'element-ui'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-import {
-  getUserToken
-} from '@/utils/user'
+import { getUserToken } from '@/utils/user'
 import Layout from '@/layout/index.vue'
 
 NProgress.configure({
@@ -30,14 +26,18 @@ router.beforeEach(async (to, from, next) => {
       } else {
         try {
           await store.dispatch('user/getUserInfo')
-          router.addRoutes([{
-            path: '/',
-            name: 'Layout',
-            component: Layout,
-            children: [{
-              path: 'app1*'
-            }]
-          }])
+          router.addRoutes([
+            {
+              path: '/',
+              name: 'Layout',
+              component: Layout,
+              children: [
+                {
+                  path: 'app1*'
+                }
+              ]
+            }
+          ])
           next({
             ...to,
             replace: true

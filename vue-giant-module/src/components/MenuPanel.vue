@@ -7,12 +7,19 @@
         :collapse="isCollapse"
         class="el-menu-panel"
       >
-        <menu-item v-for="route in routes" :isNest="false" :key="route.path" :item="route" />
+        <menu-item
+          v-for="route in routes"
+          :isNest="false"
+          :key="route.path"
+          :item="route"
+        />
       </el-menu>
     </el-scrollbar>
     <div class="collapse" @click="isCollapse = !isCollapse">
       <div class="collapse-icon">
-        <i :class="isCollapse?'el-icon-arrow-right':'el-icon-arrow-left'"></i>
+        <i
+          :class="isCollapse ? 'el-icon-arrow-right' : 'el-icon-arrow-left'"
+        ></i>
       </div>
     </div>
   </div>
@@ -31,9 +38,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
-      'routes'
-    ]),
+    ...mapGetters(['routes']),
     activeMenu() {
       return this.$route.path
     }
