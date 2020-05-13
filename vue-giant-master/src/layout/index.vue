@@ -2,6 +2,7 @@
   <div class="panel" @click="doOnWeb" @keydown="doOnWeb">
     <top-header class="panel-heder"></top-header>
     <div class="panel-main">
+      <!-- 根据当前路由地址判断是子项目页面，还是主项目页面进行选择 -->
       <router-view v-if="showView" />
       <div v-else id="root-view"></div>
     </div>
@@ -15,7 +16,7 @@ import TopHeader from '@/layout/components/Header'
 import MainMenu from '@/layout/components/Menu'
 import MainLogin from '@/layout/components/MainLogin'
 // 导入乾坤函数
-import { registerMicroApps, runAfterFirstMounted, start } from 'qiankun'
+import { registerMicroApps, start } from 'qiankun'
 import axios from '@/utils/request'
 
 export default {
@@ -36,13 +37,13 @@ export default {
     }
   },
   mounted() {
-    // 定义传入子应用的数据
+    // 定义传入子应用的数据，方法和主键
     const msg = {
       data: this.$store.getters,
-      fns: {},
+      fns: [],
       prototype: [{ name: '$axios', value: axios }]
     }
-    // 注册子应用
+    // 注册子应用,可以根据登录后的权限加载对应的子项目
     registerMicroApps(
       [
         {
@@ -79,10 +80,6 @@ export default {
       }
     )
 
-    // 第一个子应用加载完毕回调
-    runAfterFirstMounted(() => {
-      console.log('runAfterFirstMounted')
-    })
     // 启动微服务
     start({ prefetch: true })
   },
@@ -130,5 +127,5 @@ export default {
     top: 51px;
     bottom: 0px;
   }
-}</style
->>
+}
+</style>

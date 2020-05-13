@@ -25,6 +25,7 @@ router.beforeEach(async (to, from, next) => {
         next()
       } else {
         try {
+          // 获取到实际有什么子项目后再加入到router权限中
           await store.dispatch('user/getUserInfo')
           router.addRoutes([
             {
